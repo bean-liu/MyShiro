@@ -23,9 +23,10 @@ public class ShiroIndexController {
 
         try {
             UsernamePasswordToken token = new UsernamePasswordToken(username, password);
+            token.setRememberMe(true);
             Subject subject = SecurityUtils.getSubject();
             subject.login(token);
-
+            subject.getSession().setAttribute("user", subject.getPrincipal());
             HashMap<String, Object> result = new HashMap<>();
             result.put("code", 0);
             return result;

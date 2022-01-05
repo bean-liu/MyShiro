@@ -3,6 +3,7 @@ package com.example.myshiro.bean;
 import lombok.Data;
 import lombok.ToString;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.*;
@@ -10,9 +11,10 @@ import javax.persistence.*;
 @Entity
 @Table(name = "system_shiro_user")
 @Data
-@ToString
-public class ShiroUser {
 
+public class ShiroUser implements Serializable {
+
+    private static final long serialVersionUID = 2964994576390554797L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
