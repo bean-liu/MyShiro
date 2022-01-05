@@ -4,6 +4,7 @@ import com.example.myshiro.bean.Permission;
 import com.example.myshiro.mapper.PermissionMapper;
 import com.example.myshiro.realm.UserAuthRealm;
 import org.apache.shiro.mgt.SecurityManager;
+import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,5 +49,13 @@ public class ShiroConfig {
         }
         filterMap.put("/**", "anon");
         return filterMap;
+    }
+
+    // 注解支持
+    @Bean
+    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(SecurityManager securityManager){
+        AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();
+        authorizationAttributeSourceAdvisor.setSecurityManager(securityManager);
+        return authorizationAttributeSourceAdvisor;
     }
 }

@@ -1,7 +1,9 @@
 package com.example.myshiro.controller;
 
+import com.example.myshiro.bean.ShiroUser;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.subject.Subject;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -83,5 +85,17 @@ public class ShiroIndexController {
         HashMap<String, Object> result = new HashMap<>();
         result.put("code", 0);
         return result;
+    }
+
+
+    @GetMapping("/printuser")
+    @RequiresPermissions("user:add")
+    public ShiroUser printUser(){
+        return getUserInfo();
+    }
+
+    public ShiroUser getUserInfo(){
+        Subject subject = SecurityUtils.getSubject();
+        return (ShiroUser) subject.getPrincipal();
     }
 }
